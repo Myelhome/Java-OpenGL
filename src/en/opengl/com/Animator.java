@@ -1,5 +1,8 @@
 package en.opengl.com;
 
+import en.opengl.com.samples.LineTester;
+import en.opengl.com.samples.TriangleTester;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -9,6 +12,8 @@ import static en.opengl.com.params.Properties.*;
 
 public class Animator extends JFrame{
     private static void draw(BufferedImage img) {
+        LineTester.renderSixteenLines(img);
+        TriangleTester.renderPolygonesFigures(img);
     }
 
     public static void main(String[] args) throws InterruptedException {
