@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ObjectParser {
-    public static Obj3D parseObj(String path, int h, int w) {
+    public static Obj3D parseObj(String path, int w, int h) {
         List<Vector3D> vertexes = new ArrayList<>();
         List<Texture> textures = new ArrayList<>();
         List<Normal> normals = new ArrayList<>();

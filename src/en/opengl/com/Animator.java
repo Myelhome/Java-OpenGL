@@ -1,7 +1,9 @@
 package en.opengl.com;
 
-import en.opengl.com.samples.LineTester;
-import en.opengl.com.samples.TriangleTester;
+import en.opengl.com.entity.Obj3D;
+import en.opengl.com.params.Model;
+import en.opengl.com.params.ModelFactory;
+import en.opengl.com.parser.ObjectParser;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,10 +12,10 @@ import java.awt.image.BufferedImage;
 
 import static en.opengl.com.params.Properties.*;
 
-public class Animator extends JFrame{
+public class Animator extends JFrame {
+    private static Obj3D object;
+
     private static void draw(BufferedImage img) {
-        LineTester.renderSixteenLines(img);
-        TriangleTester.renderPolygonesFigures(img);
     }
 
     public static void main(String[] args) throws InterruptedException {
@@ -25,6 +27,7 @@ public class Animator extends JFrame{
         jf.createBufferStrategy(2);
         jf.setBackground(Color.BLACK);
         BufferedImage img;
+        setObject(1);
 
         while (true) {
             long rate = framerate;
@@ -47,6 +50,12 @@ public class Animator extends JFrame{
                 Thread.sleep(rate - len);
             }
         }
+    }
 
+    private static void setObject(int index) {
+        Model model = ModelFactory.getModel(index);
+        modelpath = model.getModelPath();
+        texturepath = model.getTexturePath();
+        object = ObjectParser.parseObj(modelpath, w, h);
     }
 }

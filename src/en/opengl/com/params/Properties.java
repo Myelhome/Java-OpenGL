@@ -4,4 +4,6 @@ public class Properties {
     public static final int w = 1366;
     public static final int h = 768;
     public static final long framerate = 1000 / 60;
+    public static String modelpath;
+    public static String texturepath;
 }
