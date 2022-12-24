@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class TriangleDrawer {
-    public static void shape(Vector2D v0, Vector2D v1, Vector2D v2, BufferedImage img, Color color){
+    public static void shape(Vector2D v0, Vector2D v1, Vector2D v2, BufferedImage img, Color color) {
         LineDrawer.line(v0, v1, img, color);
         LineDrawer.line(v1, v2, img, color);
         LineDrawer.line(v2, v0, img, color);
@@ -26,8 +26,8 @@ public class TriangleDrawer {
             bboxmax.y = Math.min(clamp.y, Math.max(bboxmax.y, dots[i].y));
         }
         Vector2D P = new Vector2D(bboxmin.x, bboxmin.y);
-        for (P.x = bboxmin.x; P.x <= bboxmax.x; P.x++) {
-            for (P.y = bboxmin.y; P.y <= bboxmax.y; P.y++) {
+        for (P.x = (int) bboxmin.x; P.x <= bboxmax.x; P.x++) {
+            for (P.y = (int) bboxmin.y; P.y <= bboxmax.y; P.y++) {
                 Vector3D bc_screen = barycentric(dots, P);
                 if (bc_screen.x < 0 || bc_screen.y < 0 || bc_screen.z < 0) continue;
                 img.setRGB((int) P.x, (int) P.y, color.getRGB());
