@@ -32,10 +32,9 @@ public class Vector3D {
     }
 
     public Vector3D normalize() {
-        double norm = 1.0 / length();
-        double newX = this.x * norm;
-        double newY = this.y * norm;
-        double newZ = this.z * norm;
+        double newX = this.x / length();
+        double newY = this.y / length();
+        double newZ = this.z / length();
 
         return new Vector3D(newX, newY, newZ);
     }

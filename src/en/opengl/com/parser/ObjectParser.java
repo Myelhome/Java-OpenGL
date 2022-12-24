@@ -107,6 +107,6 @@ public class ObjectParser {
             vertex.z = vertex.z * scale;
         }
 
-        return new Obj3D(Polygon3D.createPolygons(vertexes, textures, normals, faces), textures, dx, dy, dz);
+        return new Obj3D(Polygon3D.createPolygons(vertexes, textures, normals, faces), textures, dx * scale, dy * scale, dz * scale);
     }
 }

@@ -1,4 +1,4 @@
-package en.opengl.com.dimention.two;
+package en.opengl.com.dimention.two.debug;
 
 import en.opengl.com.drawer.TriangleDrawer;
 import en.opengl.com.entity.Polygon3D;
@@ -10,19 +10,18 @@ import en.opengl.com.params.Projection;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.List;
+import java.util.Random;
 
-import static java.awt.Color.WHITE;
-
-public class CordsRenderer {
-    public static void renderPolygonCords(List<Polygon3D> polygons, BufferedImage img, Projection d) {
-        Graphics2D g2 = img.createGraphics();
+public class FillRenderer {
+    public static void renderPolygonFill(List<Polygon3D> polygons, BufferedImage img, Projection d) {
+        Random r = new Random();
         for (Polygon3D polygon : polygons) {
             Vector3D[] vertexes = polygon.vertexes;
             Vector2D[] dots = new Vector2D[3];
             for (int i = 0; i < 3; i++) {
                 dots[i] = DotFactory.getDot(d, vertexes[i]);
-                g2.drawString(String.format("(%d, %d, %d)", (int)vertexes[i].x, (int)vertexes[i].y, (int)vertexes[i].z), (int) dots[i].x, (int) dots[i].y);
             }
+            TriangleDrawer.triangle(dots[0], dots[1], dots[2], img, new Color(r.nextInt(255), r.nextInt(255), r.nextInt(255)));
         }
     }
 }

@@ -1,4 +1,4 @@
-package en.opengl.com.dimention.two;
+package en.opengl.com.dimention.two.debug;
 
 import en.opengl.com.drawer.TriangleDrawer;
 import en.opengl.com.entity.Polygon3D;
