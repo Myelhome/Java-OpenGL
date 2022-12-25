@@ -2,7 +2,7 @@ package en.opengl.com.params;
 
 public class ModelFactory {
     public static Model getModel(int index){
-        switch (index){
+        switch (index % 4){
             case 0: return Model.FACE;
             case 1: return Model.GARGOYLE;
             case 2: return Model.TRUC;

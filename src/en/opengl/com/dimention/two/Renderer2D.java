@@ -10,16 +10,15 @@ import en.opengl.com.params.Projection;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Random;
 
 import static en.opengl.com.params.Properties.h;
 import static en.opengl.com.params.Properties.w;
 import static java.awt.Color.WHITE;
 
-public class Renderer {
-    public static void render(List<Polygon3D> polygons, BufferedImage img, Projection d, int x, int y, int z, Matrix4x4 mResult, boolean shape, boolean fill, boolean light, boolean cords) {
+public class Renderer2D{
+    public static List<Polygon3D> render(List<Polygon3D> polygons, BufferedImage img, Projection d, int x, int y, int z, Matrix4x4 mResult, boolean shape, boolean fill, boolean light, boolean cords) {
         Vector3D lightPosition = new Vector3D(x, y, z);
         Vector3D camera = new Vector3D(w/2.0, h/2.0, -10000);
         Random r = new Random();
@@ -76,6 +75,7 @@ public class Renderer {
                 }
             }
         }
+        return polygonsTransformed;
     }
 }
 
