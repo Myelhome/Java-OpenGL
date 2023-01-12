@@ -10,13 +10,13 @@ public class Matrix4x4 {
         this.m = m;
     }
 
-    public static Matrix4x4 getProjectionMatrix(double fNear, double fFar, double fAspectRatio, double fFovRad) {
+    public static Matrix4x4 getProjectionMatrix(double c) {
         Matrix4x4 matrixProj = new Matrix4x4();
-        matrixProj.m[0][0] = fAspectRatio * fFovRad;
-        matrixProj.m[1][1] = fFovRad;
-        matrixProj.m[2][2] = fFar / (fFar - fNear);
-        matrixProj.m[3][2] = (-fFar * fNear) / (fFar - fNear);
-        matrixProj.m[2][3] = 1.0;
+        matrixProj.m[0][0] = 1;
+        matrixProj.m[1][1] = 1;
+        matrixProj.m[2][2] = 1;
+        matrixProj.m[2][3] = -1/c;
+        matrixProj.m[3][3] = 1;
         return matrixProj;
     }
 

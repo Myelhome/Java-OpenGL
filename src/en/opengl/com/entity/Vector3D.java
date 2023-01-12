@@ -5,10 +5,22 @@ public class Vector3D {
     public double y;
     public double z;
 
+    public double u;
+    public double v;
+
+    public Vector3D(double x, double y, double z, double u, double v) {
+        this(x, y, z);
+        this.u = u;
+        this.v = v;
+    }
+
     public Vector3D(double x, double y, double z) {
         this.x = x;
         this.y = y;
         this.z = z;
+    }
+
+    public Vector3D() {
     }
 
     public static Vector3D sum(Vector3D a, Vector3D b) {
@@ -40,6 +52,6 @@ public class Vector3D {
     }
 
     public double length() {
-        return Math.sqrt(this.x*this.x + this.y*this.y + this.z*this.z);
+        return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
     }
 }

@@ -8,4 +8,8 @@ public class Vector2D {
         this.x = x;
         this.y = y;
     }
+
+    public static Vector2D toVector2D(Vector3D vector3D) {
+        return new Vector2D((int) vector3D.x, (int) vector3D.y);
+    }
 }

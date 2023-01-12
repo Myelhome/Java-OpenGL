@@ -2,14 +2,17 @@ package en.opengl.com.parser;
 
 import en.opengl.com.entity.*;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ObjectParser {
-    public static Obj3D parseObj(String path, int w, int h) {
+    public static Obj3D parseObj(String path, String texturePath, int w, int h) {
         List<Vector3D> vertexes = new ArrayList<>();
         List<Texture> textures = new ArrayList<>();
         List<Normal> normals = new ArrayList<>();
@@ -107,7 +110,14 @@ public class ObjectParser {
             vertex.z = vertex.z * scale;
         }
 
+        BufferedImage texture;
+        try {
+            texture = ImageIO.read(new File(texturePath));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         return new Obj3D(Polygon3D.createPolygons(vertexes, textures, normals, faces),
-                textures, dx * scale, dy * scale, dz * scale);
+                textures, dx * scale, dy * scale, dz * scale, texture);
     }
 }

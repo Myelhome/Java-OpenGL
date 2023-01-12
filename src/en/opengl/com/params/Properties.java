@@ -16,6 +16,9 @@ public class Properties {
     public static int lightX = 0;
     public static int lightY = 0;
     public static int lightZ = 1000;
+    public static int cameraX = 0;
+    public static int cameraY = 0;
+    public static int cameraZ = 1000;
     public static double stretchX = 0;
     public static double stretchY = 0;
     public static double stretchZ = 0;

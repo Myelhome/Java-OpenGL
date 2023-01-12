@@ -8,7 +8,6 @@ import en.opengl.com.entity.Polygon3D;
 import en.opengl.com.entity.Vector3D;
 import en.opengl.com.params.Model;
 import en.opengl.com.params.ModelFactory;
-import en.opengl.com.params.Projection;
 import en.opengl.com.parser.ObjectParser;
 
 import javax.swing.*;
@@ -17,6 +16,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static en.opengl.com.params.Properties.*;
@@ -26,21 +27,25 @@ public class Animator extends JFrame implements KeyListener {
     public static Vector3D min;
     public static Vector3D max;
     private static boolean shape = false;
-    private static boolean fill = false;
+    private static boolean textured = false;
     private static boolean light = true;
     private static boolean cords = false;
     private static boolean debug = false;
     private static boolean switcher = true;
+    private static final double[] zBuffer = new double[h*w];
+    static {
+        Arrays.fill(zBuffer, -Double.MAX_VALUE);
+    }
 
     private static void draw(BufferedImage img, Matrix4x4 mResult, Matrix4x4 pMatrix) {
         Graphics2D g2 = (Graphics2D) img.getGraphics();
-        List<Polygon3D> polygons;
-        Projection projection = Projection.FRONT;
+        List<Polygon3D> polygons = new ArrayList<>();
+
 
         if (switcher)
-            polygons = Renderer2D.render(object.polygons, img, projection, lightX, lightY, lightZ, mResult, shape, fill, light, cords);
+            polygons = Renderer2D.render(object.polygons,Arrays.copyOf(zBuffer, zBuffer.length), img,  lightX, lightY, lightZ, mResult, shape, textured, light, cords, object.texture);
         else
-            polygons = Renderer3D.render(object.polygons, img, lightX, lightY, lightZ, mResult, pMatrix, shape, fill, light, cords);
+            polygons = Renderer3D.render(object.polygons, Arrays.copyOf(zBuffer, zBuffer.length), img, lightX, lightY, lightZ, mResult, pMatrix, shape, textured, light, cords, object.texture);
 
         if (debug) {
             setMinMax(polygons);
@@ -97,7 +102,7 @@ public class Animator extends JFrame implements KeyListener {
                         Matrix4x4.getMultiplicationMatrix(scale),
                         Matrix4x4.getShiftMatrix(shiftX, shiftY, shiftZ)
                 });
-                Matrix4x4 projectMatrix = Matrix4x4.getProjectionMatrix(fNear, fFar, fAspectRatio, fFovRad);
+                Matrix4x4 projectMatrix = Matrix4x4.getProjectionMatrix(cameraZ);
 
                 draw(img, resulMatrix, projectMatrix);
             }
@@ -119,7 +124,7 @@ public class Animator extends JFrame implements KeyListener {
         Model model = ModelFactory.getModel(index);
         modelpath = model.getModelPath();
         texturepath = model.getTexturePath();
-        object = ObjectParser.parseObj(modelpath, w, h);
+        object = ObjectParser.parseObj(modelpath, texturepath, w, h);
     }
 
     @Override
@@ -143,16 +148,16 @@ public class Animator extends JFrame implements KeyListener {
                 thetaX += speed;
                 break;
             case 'a':
-                thetaY += speed;
-                break;
-            case 'd':
                 thetaY -= speed;
                 break;
+            case 'd':
+                thetaY += speed;
+                break;
             case 'q':
-                thetaZ -= speed;
+                thetaZ += speed;
                 break;
             case 'e':
-                thetaZ += speed;
+                thetaZ -= speed;
                 break;
             case '6':
                 shiftX += speedShift;
@@ -235,7 +240,7 @@ public class Animator extends JFrame implements KeyListener {
                 light = !light;
                 break;
             case '\'':
-                fill = !fill;
+                textured = !textured;
                 break;
             case 'z':
                 debug = !debug;
